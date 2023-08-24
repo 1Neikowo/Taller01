@@ -16,12 +16,41 @@ public class Main {
         System.out.println("6.- Salir");
         System.out.println();
         int ans = teclado.nextInt();
-        llamarMetodos(ans);
+        llamarMetodos(ans,dimensiones);
+        menu(dimensiones);
     }
-    public static void llamarMetodos(int ans){
+    public static void llamarMetodos(int ans, int[] dimensiones){
+        Scanner teclado = new Scanner(System.in);
+        int filas = dimensiones[0];
+        int cols = dimensiones[1];
         switch (ans){
             case 1 -> {
-                System.out.println("Validacion: "+validarDimensiones(dimensiones()[0],dimensiones()[1] ));
+                System.out.println("Validacion: "+validarDimensiones(filas,cols));
+                System.out.println();
+            }
+            case 2->{
+                crearMatriz(filas,cols);
+                System.out.println("Matriz creada");
+                System.out.println();
+            }
+            case 3->{
+                rellenarMatriz(crearMatriz(filas,cols));
+                System.out.println("Matriz rellenada");
+                System.out.println();
+            }
+            case 4->{
+                System.out.println("Fila que desea mostrar");
+                int fila = teclado.nextInt();
+                mostrarFilaMatriz(rellenarMatriz(crearMatriz(filas,cols)),fila);
+                System.out.println();
+            }
+            case 5 ->{
+                System.out.println("La matriz es una matriz cero: "+matrizCero(rellenarMatriz(crearMatriz(filas,cols))));
+                System.out.println();
+            }
+            case 6->{
+                System.out.println("Saliendo");
+                System.exit(0);
             }
         }
     }
@@ -31,7 +60,9 @@ public class Main {
         int filas = teclado.nextInt();
         System.out.println("Columnas");
         int cols = teclado.nextInt();
-        int dimensiones[] = {filas,cols};
+        int dimensiones[] = new int[2];
+        dimensiones[0]= filas;
+        dimensiones[1]=cols;
         return dimensiones;
     }
 
@@ -52,7 +83,6 @@ public class Main {
         for (int i = 0; i < matriz.length ; i++) {
             for (int j = 0; j <matriz[i].length ; j++) {
                 matriz[i][j] = (int) (Math.random()*9);
-                System.out.println(matriz[i][j]);
             }
         }
         return matriz;
@@ -61,6 +91,8 @@ public class Main {
         for (int i = 0; i < matriz[fila-1].length; i++) {
             System.out.print("["+matriz[fila-1][i]+"]");
         }
+        System.out.println();
+
     }
     public static boolean matrizCero(int[][] matriz){
         int contador = 0;
